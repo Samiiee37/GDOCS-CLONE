@@ -6,6 +6,9 @@ import StarterKit from "@tiptap/starter-kit";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { TableKit } from "@tiptap/extension-table";
 import ImageResize from "tiptap-extension-resize-image";
+import Underline from "@tiptap/extension-underline";
+
+import Toolbar from "./toolbar";
 
 const Editor = () => {
   const editor = useEditor({
@@ -24,6 +27,7 @@ const Editor = () => {
         table: { resizable: true },
       }),
       ImageResize,
+      Underline
     ],
     content: `
         <p>This is a basic example of implementing images. Drag to re-order.</p>
@@ -33,6 +37,12 @@ const Editor = () => {
   });
   return (
     <div className="size-full overflow-x-auto px-4 print:p-0 print:bg-white print:overflow-visible bg-[#F9FBFD]">
+      {/* Toolbar */}
+      <div className="sticky top-0 z-50 bg-[#F9FBFD] py-2">
+        <Toolbar editor={editor} />
+      </div>
+
+      {/* Editor */}
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
       </div>
