@@ -7,6 +7,7 @@ import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { TableKit } from "@tiptap/extension-table";
 import ImageResize from "tiptap-extension-resize-image";
 import Underline from "@tiptap/extension-underline";
+import { TextStyle, FontFamily } from '@tiptap/extension-text-style';
 
 import Toolbar from "./toolbar";
 
@@ -27,7 +28,9 @@ const Editor = () => {
         table: { resizable: true },
       }),
       ImageResize,
-      Underline
+      Underline,
+      TextStyle,
+      FontFamily,
     ],
     content: `
         <p>This is a basic example of implementing images. Drag to re-order.</p>

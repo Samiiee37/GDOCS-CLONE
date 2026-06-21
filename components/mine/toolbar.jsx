@@ -29,8 +29,24 @@ import {
   UploadIcon,
 } from "lucide-react";
 import { useEditorState } from "@tiptap/react";
+import FontFamilyBtn from "./fontFamilyBtn";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import HeadingLevelBtn from "./HeadingLevelBtn";
 
 const Toolbar = ({ editor }) => {
+  const fonts = [
+    { label: "Arial", value: "Arial" },
+    { label: "Times New Roman", value: "Times New Roman" },
+    { label: "Courier New", value: "Courier New" },
+    { label: "Georgia", value: "Georgia" },
+    { label: "Verdana", value: "Verdana" },
+  ];
   const editorState = useEditorState({
     editor,
     selector: ({ editor }) => ({
@@ -38,7 +54,6 @@ const Toolbar = ({ editor }) => {
       isItalic: editor?.isActive("italic") ?? false,
       isUnderline: editor?.isActive("underline") ?? false,
       istaskList: editor?.isActive("tasklist") ?? false,
-      
     }),
   });
   const btnArray = [
@@ -82,19 +97,24 @@ const Toolbar = ({ editor }) => {
       onClick: () => editor?.chain().focus().toggleUnderline().run(),
     },
     {
-        label: "List Todo",
-        icon: ListTodoIcon,
-        onClick: () => editor?.chain().focus().toggleTaskList().run(),
-        isActive: editor?.isActive("taskList"),
+      label: "List Todo",
+      icon: ListTodoIcon,
+      onClick: () => editor?.chain().focus().toggleTaskList().run(),
+      isActive: editor?.isActive("taskList"),
     },
     {
-        label: "Remove Formatting",
-        icon: RemoveFormattingIcon,
-        onClick: () => editor?.chain().focus().unsetAllMarks().run(),
+      label: "Remove Formatting",
+      icon: RemoveFormattingIcon,
+      onClick: () => editor?.chain().focus().unsetAllMarks().run(),
     },
   ];
+
+  
+
   return (
     <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto ">
+      <FontFamilyBtn editor={editor} />
+      <HeadingLevelBtn editor={editor} />
       {btnArray.map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
