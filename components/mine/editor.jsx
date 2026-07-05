@@ -1,6 +1,7 @@
 "use client";
 
 //imports
+import { Ruler } from "./Ruler";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
@@ -68,6 +69,11 @@ const Editor = () => {
       <div className="sticky top-0 z-50 bg-[#F9FBFD] py-2">
         <Toolbar editor={editor} />
       </div>
+
+      {/* Ruler */}
+    <div className="flex justify-center">
+      <Ruler />
+    </div>
 
       {/* Editor */}
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
