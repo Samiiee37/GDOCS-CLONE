@@ -19,6 +19,7 @@ import Link from "@tiptap/extension-link";
 import Toolbar from "./toolbar";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
+import Navbar from "./Navbar";
 
 const Editor = () => {
   const editor = useEditor({
@@ -65,6 +66,10 @@ const Editor = () => {
   });
   return (
     <div className="size-full overflow-x-auto px-4 print:p-0 print:bg-white print:overflow-visible bg-[#F9FBFD]">
+      {/*Navbar*/}
+      <div>
+      <Navbar editor={editor}/>
+    </div>
       {/* Toolbar */}
       <div className="sticky top-0 z-50 bg-[#F9FBFD] py-2">
         <Toolbar editor={editor} />
