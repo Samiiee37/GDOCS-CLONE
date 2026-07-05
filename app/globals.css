@@ -131,6 +131,15 @@
 
 .tiptap {
 
+  /* Link styles */
+a {
+  @apply text-blue-600;
+  cursor: pointer;
+
+  &:hover {
+    @apply underline;
+  }
+}
   img {
     display: block;
     height: auto;
@@ -165,14 +174,14 @@
     }
 
     th {
-      background-color: #C7C7C7;
+      background-color: #c7c7c7;
       font-weight: bold;
       text-align: left;
     }
 
     .selectedCell:after {
       background: #959596;
-      content: '';
+      content: "";
       left: 0;
       right: 0;
       top: 0;
@@ -226,7 +235,7 @@
   }
 
   /* Task list specific styles */
-  ul[data-type='taskList'] {
+  ul[data-type="taskList"] {
     list-style: none;
     margin-left: 0;
     padding: 0;
@@ -246,11 +255,11 @@
       }
     }
 
-    input[type='checkbox'] {
+    input[type="checkbox"] {
       cursor: pointer;
     }
 
-    ul[data-type='taskList'] {
+    ul[data-type="taskList"] {
       margin: 0;
     }
   }
@@ -291,3 +300,5 @@
     font-size: 1rem;
   }
 }
+
+

@@ -7,9 +7,17 @@ import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { TableKit } from "@tiptap/extension-table";
 import ImageResize from "tiptap-extension-resize-image";
 import Underline from "@tiptap/extension-underline";
-import { TextStyle, FontFamily } from '@tiptap/extension-text-style';
-
+import {
+  TextStyle,
+  FontFamily,
+  Color,
+  FontSize,
+  LineHeight,
+} from "@tiptap/extension-text-style";
+import Link from "@tiptap/extension-link";
 import Toolbar from "./toolbar";
+import Highlight from "@tiptap/extension-highlight";
+import TextAlign from "@tiptap/extension-text-align";
 
 const Editor = () => {
   const editor = useEditor({
@@ -22,15 +30,31 @@ const Editor = () => {
     },
     extensions: [
       StarterKit,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      Color,
+      Highlight.configure({ multicolor: true }),
       TaskItem.configure({ nested: true }),
       TaskList,
       TableKit.configure({
         table: { resizable: true },
       }),
-      ImageResize,
+      ImageResize.configure({
+        allowBase64: true,
+      }),
       Underline,
       TextStyle,
       FontFamily,
+      FontSize,
+      LineHeight.configure({
+        types: ["textStyle"],
+      }),
     ],
     content: `
         <p>This is a basic example of implementing images. Drag to re-order.</p>

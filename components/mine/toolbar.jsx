@@ -30,14 +30,16 @@ import {
 } from "lucide-react";
 import { useEditorState } from "@tiptap/react";
 import FontFamilyBtn from "./fontFamilyBtn";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { cn } from "@/lib/utils";
 import HeadingLevelBtn from "./HeadingLevelBtn";
+import TextColorBtn from "./textColorButton";
+import HighlightColorBtn from "./HighlightColorBtn";
+import LinkButton from "./linkButton";
+import ImageButton from "./imageButton";
+import AlignButton from "./alignButton";
+import ListButton from "./listButton";
+import FontSizeButton from "./FontSizeButton";
+import LineHeightButton from "./LineHeightButton";
+
 
 const Toolbar = ({ editor }) => {
   const fonts = [
@@ -47,6 +49,7 @@ const Toolbar = ({ editor }) => {
     { label: "Georgia", value: "Georgia" },
     { label: "Verdana", value: "Verdana" },
   ];
+  
   const editorState = useEditorState({
     editor,
     selector: ({ editor }) => ({
@@ -56,6 +59,7 @@ const Toolbar = ({ editor }) => {
       istaskList: editor?.isActive("tasklist") ?? false,
     }),
   });
+
   const btnArray = [
     {
       label: "undo",
@@ -109,12 +113,18 @@ const Toolbar = ({ editor }) => {
     },
   ];
 
-  
-
   return (
     <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto ">
       <FontFamilyBtn editor={editor} />
       <HeadingLevelBtn editor={editor} />
+      <TextColorBtn editor={editor}/>
+      <HighlightColorBtn editor={editor} />
+      <LinkButton editor={editor}/>
+      <ImageButton editor={editor}/>
+      <AlignButton editor={editor}/>
+      <FontSizeButton editor={editor}/>
+      <ListButton editor={editor}/>
+      <LineHeightButton editor={editor}/>
       {btnArray.map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
