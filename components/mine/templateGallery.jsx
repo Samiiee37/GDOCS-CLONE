@@ -9,11 +9,25 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import templates from "@/constants/templates";
+import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
+import { useState } from "react";
 
 
 
 const TemplateGallery = () => {
-    const isCreating = false;
+    const router = useRouter();
+    const create = useMutation(api.documents.create);
+    const [isCreating, setIsCreating] = useState(false);
+    const onTemplateClick = (title, initialContent) => {
+      setIsCreating(true);
+      create({title, initialContent}).then((documentId) => {
+        router.push(`/documents/${documentId}`).finally(() => {
+          setIsCreating(false)
+        })
+      })
+    }
   return (
     <div className="bg-[#F1F3F4]">
       <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-y-4">
@@ -25,7 +39,7 @@ const TemplateGallery = () => {
                         <div className={cn("aspect-[3/4] flex flex-col gap-y-2.5",
                         isCreating && "pointer-events-none opacity-50"
                         )}>
-                            <button onClick={() => {}} disabled={isCreating} style={{background: `url(${t.imageUrl})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}} className="size-full hover:border-blue-500 rounded-sm border hover:bg-blue-50 transition flex flex-col items-center justify-center gap-y-4 bg-white">
+                            <button onClick={() => {onTemplateClick(t.label, "")}} disabled={isCreating} style={{background: `url(${t.imageUrl})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat"}} className="size-full hover:border-blue-500 rounded-sm border hover:bg-blue-50 transition flex flex-col items-center justify-center gap-y-4 bg-white">
                             </button>
                              <p className="text-sm font-medium truncate">
                                     {t.label}
