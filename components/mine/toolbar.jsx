@@ -39,6 +39,7 @@ import AlignButton from "./alignButton";
 import ListButton from "./listButton";
 import FontSizeButton from "./FontSizeButton";
 import LineHeightButton from "./LineHeightButton";
+import Comments from "./comments";
 
 
 const Toolbar = ({ editor }) => {
@@ -125,6 +126,7 @@ const Toolbar = ({ editor }) => {
       <FontSizeButton editor={editor}/>
       <ListButton editor={editor}/>
       <LineHeightButton editor={editor}/>
+      <Comments editor={editor}/>
       {btnArray.map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}

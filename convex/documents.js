@@ -4,9 +4,6 @@ import { v } from "convex/values";
 import { ConvexError } from "convex/values";
 import { paginationOptsValidator } from "convex/server";
 
-
-
-
 export const get = query({
   args: {
     paginationOpts: paginationOptsValidator,
@@ -20,7 +17,7 @@ export const get = query({
       throw new ConvexError("Unauthorized");
     }
 
-    const organizationId = user.organization_id ?? undefined;
+    const organizationId = user.org_id ?? undefined;
 
     if (search && organizationId) {
       return await ctx.db
@@ -69,12 +66,15 @@ export const create = mutation({
     const user = await ctx.auth.getUserIdentity();
 
     if (!user) {
-      throw new ConvexError("Unathorized");
+      throw new ConvexError("Unauthorized");
     }
 
+    const organizationId = user.org_id ?? undefined;
+
     return await ctx.db.insert("documents", {
-      title: args.title ?? "Untitled coument",
+      title: args.title ?? "Untitled document",
       ownerId: user.subject,
+      organizationId,
       initialContent: args.initialContent,
     });
   },
@@ -89,7 +89,7 @@ export const removeById = mutation({
       throw new ConvexError("Unauthorized");
     }
 
-    const organizationId = (user.organization_id ?? undefined) 
+    const organizationId = user.org_id ?? undefined;
     const document = await ctx.db.get(args.id);
 
     if (!document) {
@@ -97,7 +97,7 @@ export const removeById = mutation({
     }
 
     const isOwner = document.ownerId === user.subject;
-    const isOrganizationMember = 
+    const isOrganizationMember =
       !!(document.organizationId && document.organizationId === organizationId);
 
     if (!isOwner && !isOrganizationMember) {
@@ -117,7 +117,7 @@ export const updateById = mutation({
       throw new ConvexError("Unauthorized");
     }
 
-    const organizationId = (user.organization_id ?? undefined) 
+    const organizationId = user.org_id ?? undefined;
 
     const document = await ctx.db.get(args.id);
 
@@ -126,7 +126,7 @@ export const updateById = mutation({
     }
 
     const isOwner = document.ownerId === user.subject;
-    const isOrganizationMember = 
+    const isOrganizationMember =
       !!(document.organizationId && document.organizationId === organizationId);
 
     if (!isOwner && !isOrganizationMember) {

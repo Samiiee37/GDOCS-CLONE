@@ -15,13 +15,16 @@ import {
   FontSize,
   LineHeight,
 } from "@tiptap/extension-text-style";
+import { useLiveblocksExtension, FloatingToolbar } from "@liveblocks/react-tiptap";
 import Link from "@tiptap/extension-link";
 import Toolbar from "./toolbar";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
 import Navbar from "./Navbar";
+import { Threads } from "../liveBloks/Threads";
 
 const Editor = () => {
+  const liveblocks = useLiveblocksExtension();
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -31,7 +34,8 @@ const Editor = () => {
       },
     },
     extensions: [
-      StarterKit,
+      liveblocks,
+      StarterKit.configure({history: false}),
       Link.configure({
         openOnClick: false,
         autolink: true,
@@ -83,6 +87,7 @@ const Editor = () => {
       {/* Editor */}
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
+        <Threads editor={editor}/>
       </div>
     </div>
   );
